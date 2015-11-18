@@ -1,0 +1,771 @@
+
+In [1]:
+
+import nltk
+
+In [2]:
+
+import os
+
+In [4]:
+
+speech = open('./UMA_Fraser_Radio_Talks/UDS2013680-151-full.txt', 'r').read()
+
+In [5]:
+
+print speech[:150]
+
+<!--start metadata-->
+Title: Re-organisation of the Australian Meat Board
+Description: press statement
+Date: 19/04/1964
+Collection: John Malcolm F
+
+In [6]:
+
+from nltk import word_tokenize
+
+In [7]:
+
+tokens = word_tokenize(speech)
+
+In [24]:
+
+fdist1 = nltk.FreqDist(tokens)
+
+In [25]:
+
+fdist1.most_common()[:20]
+
+Out[25]:
+
+[('the', 76),
+ ('.', 40),
+ ('of', 33),
+ (',', 32),
+ ('Board', 24),
+ ('a', 21),
+ ('Australian', 20),
+ ('and', 20),
+ ('will', 19),
+ ('to', 18),
+ ('The', 15),
+ ('be', 15),
+ ('is', 14),
+ ('meat', 11),
+ ('have', 11),
+ ('Meat', 11),
+ ('in', 11),
+ ('from', 10),
+ ('for', 10),
+ ('on', 10)]
+
+In [11]:
+
+len(tokens)
+
+Out[11]:
+
+1081
+
+In [12]:
+
+len(set(tokens))
+
+Out[12]:
+
+419
+
+In [18]:
+
+vocab = [word for word in tokens if word.isalpha()]
+print len(vocab)
+words2 = [word.lower() for word in vocab]
+print len(set(words2))
+
+939
+353
+
+In [19]:
+
+from nltk.corpus import stopwords
+
+In [20]:
+
+ignored_words = nltk.corpus.stopwords.words('english')
+
+In [21]:
+
+words3 = [word for word in words2 if word not in ignored_words]
+
+In [22]:
+
+print len(set(words3))
+
+291
+
+In [26]:
+
+fdist2 = nltk.FreqDist(words3)
+
+In [27]:
+
+fdist2.most_common()[:20]
+
+Out[27]:
+
+[('board', 25),
+ ('meat', 22),
+ ('australian', 21),
+ ('committee', 12),
+ ('selection', 8),
+ ('members', 7),
+ ('research', 7),
+ ('government', 6),
+ ('representatives', 6),
+ ('new', 6),
+ ('producers', 6),
+ ('industry', 6),
+ ('wool', 5),
+ ('old', 5),
+ ('conference', 5),
+ ('council', 5),
+ ('beef', 4),
+ ('markets', 4),
+ ('minister', 4),
+ ('also', 4)]
+
+In [28]:
+
+from nltk.collocations import *
+
+In [29]:
+
+bigram_measures = nltk.collocations.BigramAssocMeasures()
+finder = BigramCollocationFinder.from_words(tokens)
+sorted(finder.nbest(bigram_measures.raw_freq, 10))
+
+Out[29]:
+
+[('.', 'The'),
+ ('Australian', 'Meat'),
+ ('Board', '.'),
+ ('Meat', 'Board'),
+ ('Selection', 'Committee'),
+ ('of', 'the'),
+ ('on', 'the'),
+ ('the', 'Australian'),
+ ('to', 'the'),
+ ('will', 'be')]
+
+In [30]:
+
+finder = BigramCollocationFinder.from_words(words3)
+sorted(finder.nbest(bigram_measures.raw_freq, 10))
+
+Out[30]:
+
+[('australian', 'meat'),
+ ('australian', 'wool'),
+ ('board', 'selection'),
+ ('four', 'members'),
+ ('industry', 'conference'),
+ ('meat', 'board'),
+ ('meat', 'producers'),
+ ('new', 'board'),
+ ('selection', 'committee'),
+ ('wool', 'industry')]
+
+In [32]:
+
+nltk.download('all')
+
+[nltk_data] Downloading collection u'all'
+[nltk_data]    | 
+[nltk_data]    | Downloading package abc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package abc is already up-to-date!
+[nltk_data]    | Downloading package alpino to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package alpino is already up-to-date!
+[nltk_data]    | Downloading package biocreative_ppi to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package biocreative_ppi is already up-to-date!
+[nltk_data]    | Downloading package brown to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package brown is already up-to-date!
+[nltk_data]    | Downloading package brown_tei to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package brown_tei is already up-to-date!
+[nltk_data]    | Downloading package cess_cat to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package cess_cat is already up-to-date!
+[nltk_data]    | Downloading package cess_esp to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package cess_esp is already up-to-date!
+[nltk_data]    | Downloading package chat80 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package chat80 is already up-to-date!
+[nltk_data]    | Downloading package city_database to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package city_database is already up-to-date!
+[nltk_data]    | Downloading package cmudict to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package cmudict is already up-to-date!
+[nltk_data]    | Downloading package comparative_sentences to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package comparative_sentences is already up-to-
+[nltk_data]    |       date!
+[nltk_data]    | Downloading package comtrans to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package comtrans is already up-to-date!
+[nltk_data]    | Downloading package conll2000 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package conll2000 is already up-to-date!
+[nltk_data]    | Downloading package conll2002 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package conll2002 is already up-to-date!
+[nltk_data]    | Downloading package conll2007 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package conll2007 is already up-to-date!
+[nltk_data]    | Downloading package crubadan to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package crubadan is already up-to-date!
+[nltk_data]    | Downloading package dependency_treebank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package dependency_treebank is already up-to-date!
+[nltk_data]    | Downloading package europarl_raw to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package europarl_raw is already up-to-date!
+[nltk_data]    | Downloading package floresta to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package floresta is already up-to-date!
+[nltk_data]    | Downloading package framenet_v15 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package framenet_v15 is already up-to-date!
+[nltk_data]    | Downloading package gazetteers to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package gazetteers is already up-to-date!
+[nltk_data]    | Downloading package genesis to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package genesis is already up-to-date!
+[nltk_data]    | Downloading package gutenberg to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package gutenberg is already up-to-date!
+[nltk_data]    | Downloading package ieer to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ieer is already up-to-date!
+[nltk_data]    | Downloading package inaugural to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package inaugural is already up-to-date!
+[nltk_data]    | Downloading package indian to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package indian is already up-to-date!
+[nltk_data]    | Downloading package jeita to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package jeita is already up-to-date!
+[nltk_data]    | Downloading package kimmo to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package kimmo is already up-to-date!
+[nltk_data]    | Downloading package knbc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package knbc is already up-to-date!
+[nltk_data]    | Downloading package lin_thesaurus to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package lin_thesaurus is already up-to-date!
+[nltk_data]    | Downloading package mac_morpho to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package mac_morpho is already up-to-date!
+[nltk_data]    | Downloading package machado to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package machado is already up-to-date!
+[nltk_data]    | Downloading package masc_tagged to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package masc_tagged is already up-to-date!
+[nltk_data]    | Downloading package moses_sample to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package moses_sample is already up-to-date!
+[nltk_data]    | Downloading package movie_reviews to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package movie_reviews is already up-to-date!
+[nltk_data]    | Downloading package names to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package names is already up-to-date!
+[nltk_data]    | Downloading package nombank.1.0 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package nombank.1.0 is already up-to-date!
+[nltk_data]    | Downloading package nps_chat to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package nps_chat is already up-to-date!
+[nltk_data]    | Downloading package oanc_masc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package oanc_masc is already up-to-date!
+[nltk_data]    | Downloading package omw to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Unzipping corpora/omw.zip.
+[nltk_data]    | Downloading package opinion_lexicon to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package opinion_lexicon is already up-to-date!
+[nltk_data]    | Downloading package paradigms to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package paradigms is already up-to-date!
+[nltk_data]    | Downloading package pil to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package pil is already up-to-date!
+[nltk_data]    | Downloading package pl196x to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package pl196x is already up-to-date!
+[nltk_data]    | Downloading package ppattach to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ppattach is already up-to-date!
+[nltk_data]    | Downloading package problem_reports to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package problem_reports is already up-to-date!
+[nltk_data]    | Downloading package propbank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package propbank is already up-to-date!
+[nltk_data]    | Downloading package ptb to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ptb is already up-to-date!
+[nltk_data]    | Downloading package oanc_masc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package oanc_masc is already up-to-date!
+[nltk_data]    | Downloading package product_reviews_1 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package product_reviews_1 is already up-to-date!
+[nltk_data]    | Downloading package product_reviews_2 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package product_reviews_2 is already up-to-date!
+[nltk_data]    | Downloading package pros_cons to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package pros_cons is already up-to-date!
+[nltk_data]    | Downloading package qc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package qc is already up-to-date!
+[nltk_data]    | Downloading package reuters to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package reuters is already up-to-date!
+[nltk_data]    | Downloading package rte to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package rte is already up-to-date!
+[nltk_data]    | Downloading package semcor to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package semcor is already up-to-date!
+[nltk_data]    | Downloading package senseval to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package senseval is already up-to-date!
+[nltk_data]    | Downloading package sentiwordnet to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sentiwordnet is already up-to-date!
+[nltk_data]    | Downloading package sentence_polarity to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sentence_polarity is already up-to-date!
+[nltk_data]    | Downloading package shakespeare to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package shakespeare is already up-to-date!
+[nltk_data]    | Downloading package sinica_treebank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sinica_treebank is already up-to-date!
+[nltk_data]    | Downloading package smultron to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package smultron is already up-to-date!
+[nltk_data]    | Downloading package state_union to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package state_union is already up-to-date!
+[nltk_data]    | Downloading package stopwords to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package stopwords is already up-to-date!
+[nltk_data]    | Downloading package subjectivity to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package subjectivity is already up-to-date!
+[nltk_data]    | Downloading package swadesh to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package swadesh is already up-to-date!
+[nltk_data]    | Downloading package switchboard to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package switchboard is already up-to-date!
+[nltk_data]    | Downloading package timit to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package timit is already up-to-date!
+[nltk_data]    | Downloading package toolbox to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package toolbox is already up-to-date!
+[nltk_data]    | Downloading package treebank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package treebank is already up-to-date!
+[nltk_data]    | Downloading package twitter_samples to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package twitter_samples is already up-to-date!
+[nltk_data]    | Downloading package udhr to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package udhr is already up-to-date!
+[nltk_data]    | Downloading package udhr2 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package udhr2 is already up-to-date!
+[nltk_data]    | Downloading package unicode_samples to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package unicode_samples is already up-to-date!
+[nltk_data]    | Downloading package universal_treebanks_v20 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package universal_treebanks_v20 is already up-to-
+[nltk_data]    |       date!
+[nltk_data]    | Downloading package verbnet to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package verbnet is already up-to-date!
+[nltk_data]    | Downloading package webtext to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package webtext is already up-to-date!
+[nltk_data]    | Downloading package wordnet to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Unzipping corpora/wordnet.zip.
+[nltk_data]    | Downloading package wordnet_ic to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package wordnet_ic is already up-to-date!
+[nltk_data]    | Downloading package words to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package words is already up-to-date!
+[nltk_data]    | Downloading package ycoe to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ycoe is already up-to-date!
+[nltk_data]    | Downloading package rslp to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package rslp is already up-to-date!
+[nltk_data]    | Downloading package hmm_treebank_pos_tagger to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package hmm_treebank_pos_tagger is already up-to-
+[nltk_data]    |       date!
+[nltk_data]    | Downloading package maxent_treebank_pos_tagger to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package maxent_treebank_pos_tagger is already up-
+[nltk_data]    |       to-date!
+[nltk_data]    | Downloading package universal_tagset to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package universal_tagset is already up-to-date!
+[nltk_data]    | Downloading package maxent_ne_chunker to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package maxent_ne_chunker is already up-to-date!
+[nltk_data]    | Downloading package punkt to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package punkt is already up-to-date!
+[nltk_data]    | Downloading package book_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package book_grammars is already up-to-date!
+[nltk_data]    | Downloading package sample_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sample_grammars is already up-to-date!
+[nltk_data]    | Downloading package spanish_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package spanish_grammars is already up-to-date!
+[nltk_data]    | Downloading package basque_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package basque_grammars is already up-to-date!
+[nltk_data]    | Downloading package large_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package large_grammars is already up-to-date!
+[nltk_data]    | Downloading package tagsets to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package tagsets is already up-to-date!
+[nltk_data]    | Downloading package snowball_data to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package snowball_data is already up-to-date!
+[nltk_data]    | Downloading package bllip_wsj_no_aux to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package bllip_wsj_no_aux is already up-to-date!
+[nltk_data]    | Downloading package word2vec_sample to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package word2vec_sample is already up-to-date!
+[nltk_data]    | Downloading package panlex_swadesh to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package panlex_swadesh is already up-to-date!
+[nltk_data]    | Downloading package mte_teip5 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package mte_teip5 is already up-to-date!
+[nltk_data]    | Downloading package averaged_perceptron_tagger to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package averaged_perceptron_tagger is already up-
+[nltk_data]    |       to-date!
+[nltk_data]    | 
+[nltk_data]  Done downloading collection all
+
+Out[32]:
+
+True
+
+In [35]:
+
+from nltk.book import *
+print sent2
+
+from nltk.util import ngrams
+n = 3
+trigrams = ngrams(sent2, 3)
+for gram in trigrams:
+    print gram
+
+*** Introductory Examples for the NLTK Book ***
+Loading text1, ..., text9 and sent1, ..., sent9
+Type the name of the text or sentence to view it.
+Type: 'texts()' or 'sents()' to list the materials.
+text1: Moby Dick by Herman Melville 1851
+text2: Sense and Sensibility by Jane Austen 1811
+text3: The Book of Genesis
+text4: Inaugural Address Corpus
+text5: Chat Corpus
+text6: Monty Python and the Holy Grail
+text7: Wall Street Journal
+text8: Personals Corpus
+text9: The Man Who Was Thursday by G . K . Chesterton 1908
+['The', 'family', 'of', 'Dashwood', 'had', 'long', 'been', 'settled', 'in', 'Sussex', '.']
+('The', 'family', 'of')
+('family', 'of', 'Dashwood')
+('of', 'Dashwood', 'had')
+('Dashwood', 'had', 'long')
+('had', 'long', 'been')
+('long', 'been', 'settled')
+('been', 'settled', 'in')
+('settled', 'in', 'Sussex')
+('in', 'Sussex', '.')
+
+In [44]:
+
+def list_duplicates(seq):
+    tally = defaultdict(list)
+    for i, item in enumerate(seq):
+        tally[item].append(i)
+    return ((len(locs), key) for key, locs in tally.items() if len(locs) > threshold)
+
+def ngrammer(text, gramsize, threshold = 4):
+    def list_duplicates(seq):
+        tally = defaultdict(list)
+        for i, item in enumerate(seq):
+            tally[item].append(i)
+        return ((len(locs), key) for key, locs in tally.items() if len(locs) > threshold)
+    raw_grams = ngrams(text, gramsize)
+    dupes = list_duplicates(raw_grams)
+    return sorted(dupes, reverse = True)
+
+In [45]:
+
+ngrammer(tokens, 3, threshold = 3)
+
+Out[45]:
+
+[(9, ('the', 'Australian', 'Meat')),
+ (7, ('Australian', 'Meat', 'Board')),
+ (5, ('Selection', 'Committee', '.')),
+ (5, ('Board', 'Selection', 'Committee')),
+ (4, ('the', 'Board', '.')),
+ (4, (',', 'together', 'with'))]
+
+In [48]:
+
+ngrammer(tokens, 4, threshold = 3)
+
+Out[48]:
+
+[(7, ('the', 'Australian', 'Meat', 'Board')),
+ (4, ('Board', 'Selection', 'Committee', '.'))]
+
+In [50]:
+
+print type(tokens)
+text = nltk.Text(tokens)
+print type(text)
+text.collocations()
+
+<type 'list'>
+<class 'nltk.text.Text'>
+Selection Committee; Australian Meat; Meat Board; new Board; four
+members; private traders; Board Selection; Australian Wool; Primary
+Producers; Federal Council; Industry Conference; Wool Industry; nine
+members; Meat Exporters; producer representatives; Australian Primary;
+beef research; meat producers; Australian meat
+
+In [51]:
+
+import urllib
+from urllib import urlopen
+
+In [52]:
+
+cocoa = urlopen('http://gutenberg.digitalfabulists.org/pg19073.txt').read()
+print cocoa[:100]
+
+﻿The Project Gutenberg EBook of Cocoa and Chocolate, by Arthur W. Knapp
+
+This eBook is for the u
+
+In [53]:
+
+type(cocoa)
+
+Out[53]:
+
+str
+
+In [54]:
+
+raw = unicode(cocoa, 'utf-8')
+title = next(line for line in raw.splitlines() if line.startswith('Title'))
+print title
+print raw[:200]
+
+Title: Cocoa and Chocolate
+﻿The Project Gutenberg EBook of Cocoa and Chocolate, by Arthur W. Knapp
+
+This eBook is for the use of anyone anywhere at no cost and with
+almost no restrictions whatsoever.  You may copy it, give i
+
+In [55]:
+
+!pwd
+
+/home/researcher
+
+In [56]:
+
+! mkdir books
+%cd books
+filetitle = title.replace(' ', '-')
+bookfile = open(filetitle, 'w')
+bookfile.write(raw.encode('utf-8'))
+bookfile.close()
+print 'created file', title
+
+/home/researcher/books
+created file Title: Cocoa and Chocolate
+
+In [58]:
+
+url = "https://en.wikipedia.org/wiki/Synthetic_biology"
+
+In [60]:
+
+raw = urlopen(url).read()
+print type(raw)
+print raw[100:400]
+
+<type 'str'>
+e>Synthetic biology - Wikipedia, the free encyclopedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanon
+
+In [61]:
+
+soup = BeautifulSoup(raw, 'html.parser')
+print type(soup)
+
+<class 'bs4.BeautifulSoup'>
+
+In [63]:
+
+texts = []
+for para in soup.find_all('p'):
+    text = para.text
+    texts.append(text)
+print texts[:10]
+
+[u'[1]Synthetic biology is an interdisciplinary branch of biology, combining disciplines such as biotechnology, evolutionary biology, molecular biology, systems biology, biophysics, computer engineering, and genetic engineering.', u'The definition of synthetic biology is debated not only among natural scientists but also in the human sciences, arts and politics.[2] One popular definition[3] is "designing and constructing biological devices,[4] biological systems, and biological machines for useful purposes." However, the functional aspects of this definition stem from molecular biology and biotechnology.[5]', u'', u'', u'The term "synthetic biology" has a history spanning the twentieth century. The first use was in St\xe9phane Leduc\u2019s publication of \xab\xa0Th\xe9orie physico-chimique de la vie et g\xe9n\xe9rations spontan\xe9es\xa0\xbb (1910)[6] and \xab\xa0La Biologie Synth\xe9tique\xa0\xbb (1912).[7][who said this?] In 1974, the Polish geneticist Wac\u0142aw Szybalski used the term "synthetic biology",[8] writing:', u'Let me now comment on the question "what next". Up to now we are working on the descriptive phase of molecular biology. \u2026 But the real challenge will start when we enter the synthetic phase of research in our field. We will then devise new control elements and add these new modules to the existing genomes or build up wholly new genomes. This would be a field with an unlimited expansion potential and hardly any limitations to building "new better control circuits" or ..... finally other "synthetic" organisms, like a "new better mouse". \u2026 I am not concerned that we will run out of exciting and novel ideas, \u2026 in the synthetic biology, in general.', u'When in 1978 the Nobel Prize in Physiology or Medicine was awarded to Arber, Nathans and Smith for the discovery of restriction enzymes, Wac\u0142aw Szybalski wrote in an editorial comment in the journal Gene:', u'The work on restriction nucleases not only permits us easily to construct recombinant DNA molecules and to analyze individual genes, but also has led us into the new era of synthetic biology where not only existing genes are described and analyzed but also new gene arrangements can be constructed and evaluated.[9]', u'The beginning of actual applications of synthetic biology first occurred in 2000, when two articles posted in Nature discussed the creation the now frequently used biological circuit devices of a genetic toggle switch and a biological clock by combining genes within E. coli cells.[10][11]', u'Engineers view biology as a technology \u2013 the systems biotechnology or systems biological engineering.[12] Synthetic Biology includes the broad redefinition and expansion of biotechnology, with the ultimate goals of being able to design and build engineered biological systems that process information, manipulate chemicals, fabricate materials and structures, produce energy, provide food, and maintain and enhance human health (see Biomedical Engineering) and our environment.[13]']
+
+In [65]:
+
+import re
+regex = re.compile('\[[0-9]*\]')
+joined_texts = '\n'.join(texts)
+joined_texts = re.sub(regex, "", joined_texts)
+print type(joined_texts)
+print joined_texts[:200]
+
+<type 'unicode'>
+Synthetic biology is an interdisciplinary branch of biology, combining disciplines such as biotechnology, evolutionary biology, molecular biology, systems biology, biophysics, computer engineering, an
+
+In [66]:
+
+synbiotokens = nltk.word_tokenize(joined_texts)
+
+In [67]:
+
+%cd
+
+/home/researcher
+
+In [69]:
+
+! mkdir wikis
+%cd wikis
+filetitle = title.replace(' ', '-')
+bookfile = open(filetitle, 'w')
+bookfile.close()
+print 'created file', title
+
+/home/researcher/wikis/wikis
+created file Title: Cocoa and Chocolate
+
+In [72]:
+
+synbio = open('synbio.txt', 'w')
+synbio.write(joined_texts.encode('utf-8'))
+
+In [71]:
+
+print joined_texts[680:700]
+
+use was in Stéphane 
+
+In [73]:
+
+url = "http://www.theguardian.com/science/political-science/2015/jan/30/uk-synthetic-biology-centres-tasked-with-addressing-public-concerns"
+
+In [74]:
+
+raw = urlopen(url).read()
+print type(raw)
+print raw[100:400]
+
+<type 'str'>
+science/political-science/2015/jan/30/uk-synthetic-biology-centres-tasked-with-addressing-public-concerns">
+<!--
+
+##::::: ##: ########::::::: ###:::: ########:: ########:::: ##:::: ##: ####: ########:: ####: ##::: ##:: ######::
+##: ##: ##: ##.....::::::: ## ##::: ##.... ##: ##.....::::: ##:::: ##:. 
+
+In [75]:
+
+soup = BeautifulSoup(raw, 'html.parser')
+print type(soup)
+
+<class 'bs4.BeautifulSoup'>
+
+In [78]:
+
+texts = []
+for para in soup.find_all('p'):
+    text = para.text
+    texts.append(text)
+print texts[:5]
+
+[u'An extra \xa340m for synthetic biology research in the UK comes with support to encourage responsible innovation. Social media analysis offers a heads up on new research ideas and potential public concerns', u'Philip Shapira & Abdullah G\xf6k', u'\n\nFriday 30 January 2015 21.00 AEDT\n\n\nLast modified on Friday 10 April 2015 01.12 AEST\n\n', u'UK\u2019s business secretary Vince Cable was at the University of Manchester on Thursday to announce \xa340m in new research funding for synthetic biology, including \xa332m for Synthetic Biology Research Centres (SBRCs) in Manchester, Edinburgh, and Warwick.', u'This is another major boost for synthetic biology research, joining three other SBRCs in Bristol, Cambridge, and Nottingham and a Synthetic Biology Innovation and Knowledge Centre at Imperial College London set up in 2014.']
+
+In [77]:
+
+import re
+regex = re.compile('\[[0-9]*\]')
+joined_texts = '\n'.join(texts)
+joined_texts = re.sub(regex, "", joined_texts)
+print type(joined_texts)
+print joined_texts[:200]
+
+<type 'unicode'>
+An extra £40m for synthetic biology research in the UK comes with support to encourage responsible innovation. Social media analysis offers a heads up on new research ideas and potential public concer
+
+In [79]:
+
+!ls
+
+Title:-Cocoa-and-Chocolate  synbio.txt
+
+In [ ]:
+
+ 
+
