@@ -1,0 +1,803 @@
+
+In [2]:
+
+import os
+from nltk import word_tokenize
+from nltk.text import Text
+
+In [3]:
+
+!ls
+
+NLTKlearning.ipynb	UMA_Fraser_Radio_Talks	    nltk_data
+NLTKtrainingday2.ipynb	UMA_Fraser_Radio_Talks.zip
+
+In [4]:
+
+files = os.listdir('UMA_Fraser_Radio_Talks/')
+
+In [6]:
+
+print files [0:5]
+
+['UDS2013680-447-full.txt', 'UDS2013680-610-full.txt', 'UDS2013680-385-full.txt', 'UDS2013680-68-full.txt', 'UDS2013680-251-full.txt']
+
+In [7]:
+
+corpus_path ='UMA_Fraser_Radio_Talks/'
+
+In [8]:
+
+corpus_path
+
+Out[8]:
+
+'UMA_Fraser_Radio_Talks/'
+
+In [9]:
+
+files = open(os.path.join(corpus_path, files[0]), "r" )
+
+In [10]:
+
+type(files)
+
+Out[10]:
+
+file
+
+In [11]:
+
+files
+
+Out[11]:
+
+<open file 'UMA_Fraser_Radio_Talks/UDS2013680-447-full.txt', mode 'r' at 0x46f1420>
+
+In [12]:
+
+text = files.read()
+
+In [13]:
+
+print text
+
+<!--start metadata-->
+Title: Commonwealth ban on export of birds
+Description: press statement
+Date: 20/12/1959
+Collection: John Malcolm Fraser, 2007.0023
+Collection URI: http://gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details
+Format: Uncorrected OCR text
+<!--end metadata-->
+
+
+P8Ep8 STATEMENT         December 20th, 1959
+i�ALCOJ.M FRASZR
+      You probably saw a few days ago reports in the national press 
+that the Commonwealth has banned the export of all birds, wether trapped 
+in their native state or whether they are aviary bred. Export of birds 
+will only be allowed on a zoo to zoo basis, thus destroying the poecibility 
+of evasion of the regulations.
+      Several people originally approached me on this matter very 
+nearly a year ago. Then as soon as Parliament assembled in 1959 several of 
+us approached the Minister for Customs and asked him to use the power that 
+the Commonwealth has always possessed to ban the export of birds on the two 
+grounds, one that the trading of birds constituted a threat to the survival 
+of some species of birds and secondly on the grounds of very severe losses 
+and the cruelty concerned in the trade. Losses have been placed as high 
+as 804 to 90 of birds trapped.
+      Senator Henty at that time promised to examine the matter 
+fully. After making his examination he felt there should be a conference 
+between the Commonwealth and State Officers to examine the whole question. 
+He came to this conclusion because traditionally the protection of native 
+fauna and flora has rested on the States' shoulders even though the 
+Commonwealth control over export and customs gives the Oommonwealth 
+considerable powers.
+      It was hoped that an agreement could be reached between all 
+the states of the Cormmonwealth, on the best means to control this trade. 
+The Commonwealth hoped to get this agreement for this reason. The 
+Commonwealth has the power to ban the export of birds, but it has no 
+power over the internal trading of birds between one State and another and, 
+therefore, if there is one )tats which remains un�co-operative the efforts 
+of other States can be destroyed by the one State pex nittin ; the internal 
+trade to continue.
+      This conference between the Commonwealth and the States was 
+held during last winter. Unfortunately there were one or two States that 
+would not agree that the export of birds constituted a threat to the 
+existence of certain species of birds and, furthermore, there were one 
+or two States that would not admit that the number of birds trapped must 
+very greatly exceed the number of birds traded. In other words, there
+
+   one or two States that would not admit that the losses involved in 
+his trade were particularly high.
+        it is difficult to get co .plete evidence of loss, but the
+   t rosbie JForrison, who was a conservative and accurate man, placed
+   Huber of loseee as at least 75%. This loss alone should surely 
+have given everyone csauae to doubt whether this trade should be 
+permitted, quite apart from it effect on the survival of certain 
+species of Australian birds. Unfortunately, one or two States hay 
+apparently taken pride in the trade, the 1Fiaher ee and Games Impartment 
+of South Australia stated in their 1957/58 report that the demand for 
+their live birds and animals from interstate buyers and overseas 
+people remained firm; then followed a long lief of birds, totalling 
+tens of thou�ands, which have been traded in that State.
+        Because of these urco-operative States it was not possible 
+for the officers of the States and the Commonwealth meeting together 
+to come to a conclusion that would have been of any help to the bird 
+lovers of Australia. The only des that these people geed to were 
+certain administrative ones which, ih my view, would have increased 
+the amount of red tape involved, and which would have done little or 
+nothing to protect Australian bird life.
+        Senator Henty, who has always been most sympathetic to the 
+point of view put forward by bird lover, came to much the same 
+conclusion. There were two choices open to him. It would have been 
+possible to give the administrative changes arrived at by agreement 
+with the States rMa trial for twelve months, Un the other hand, he 
+could decide to act now and use the Co { onwealth power to ban the 
+export of birds. Senator iienty, with the Government's approval, has 
+chosen the latter course and I think we all give him our thane that 
+he has done so.
+        In the past years the no      trade     e asoetly
+fr - m overseas but in recent months t Australian trade,
+over which the Commonwealth has no control, has been building up to 
+large proportions. If the export of birds is banned now, as it has 
+been, the internal trade will probably not be sufficient, or certainly 
+we hope it will not be sufficient, to maintain the trading industry
+which could well die a natural death.
+
+               3
+
+       However, if the Commonwealth waited another twelve
+or eighteen months before banning the export of birds the local
+trade may well have grown to such proportions that it would sustain
+trading in its own right. I think this could have been a significant
+factor in deciding the Government to act now.
+      This is my last statement until Parliament rentuaes
+next year. I am glad to have been able to end on a note that
+should appeal to many Australians from all walks of life, and I
+wish you one and all a Happy Christmas and Prosperous New Year.
+
+
+In [14]:
+
+data = text.split("<!--end metadata-->")
+
+In [15]:
+
+print data[0]
+
+<!--start metadata-->
+Title: Commonwealth ban on export of birds
+Description: press statement
+Date: 20/12/1959
+Collection: John Malcolm Fraser, 2007.0023
+Collection URI: http://gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details
+Format: Uncorrected OCR text
+
+In [16]:
+
+for line in data[0].split('\r\n'):
+    print '*', line
+
+* <!--start metadata-->
+* Title: Commonwealth ban on export of birds
+* Description: press statement
+* Date: 20/12/1959
+* Collection: John Malcolm Fraser, 2007.0023
+* Collection URI: http://gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details
+* Format: Uncorrected OCR text
+* 
+
+data[0]
+In [25]:
+
+for line in data[0].split('\r\n'):
+    if not line:
+        continue
+    if line[0] == '<':
+        continue
+    element = line.split(':')
+    print '*', element
+
+* ['Title', ' Commonwealth ban on export of birds']
+* ['Description', ' press statement']
+* ['Date', ' 20/12/1959']
+* ['Collection', ' John Malcolm Fraser, 2007.0023']
+* ['Collection URI', ' http', '//gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details']
+* ['Format', ' Uncorrected OCR text']
+
+In [26]:
+
+commonwords = {'the': 4012, 'of': 74875, 'a':32}
+
+In [27]:
+
+commonwords['of']
+
+Out[27]:
+
+74875
+
+In [31]:
+
+commonwords['addathing'] = 203
+
+In [35]:
+
+arbitrarygroupofwords = {'banana':'yellow', 'meaning of life': 42, 'key':'value'}
+
+In [36]:
+
+arbitrarygroupofwords
+
+Out[36]:
+
+{'banana': 'yellow', 'key': 'value', 'meaning of life': 42}
+
+In [40]:
+
+metadata = {}
+for line in data[0].split('\r\n'):
+    if not line:
+        continue
+    if line[0] == '<':
+        continue
+    element = line.split(':', 1)
+    metadata[element[0]] = element[-1]
+print metadata
+
+{'Collection URI': ' http://gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details', 'Description': ' press statement', 'Format': ' Uncorrected OCR text', 'Title': ' Commonwealth ban on export of birds', 'Collection': ' John Malcolm Fraser, 2007.0023', 'Date': ' 20/12/1959'}
+
+In [42]:
+
+print metadata['Title']
+
+ Commonwealth ban on export of birds
+
+In [49]:
+
+metadata.items()
+
+Out[49]:
+
+[('Collection URI',
+  ' http://gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details'),
+ ('Description', ' press statement'),
+ ('Format', ' Uncorrected OCR text'),
+ ('Title', ' Commonwealth ban on export of birds'),
+ ('Collection', ' John Malcolm Fraser, 2007.0023'),
+ ('Date', ' 20/12/1959')]
+
+In [50]:
+
+for k,v in metadata.items():
+    print '*',k + ':',v
+
+* Collection URI:  http://gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details
+* Description:  press statement
+* Format:  Uncorrected OCR text
+* Title:  Commonwealth ban on export of birds
+* Collection:  John Malcolm Fraser, 2007.0023
+* Date:  20/12/1959
+
+In [51]:
+
+for k,v in arbitrarygroupofwords.items():
+    print '@',k + ':',v
+
+@ meaning of life: 42
+@ banana: yellow
+@ key: value
+
+In [53]:
+
+from nltk.probability import ConditionalFreqDist
+import matplotlib
+% matplotlib inline
+
+In [55]:
+
+def parse_metadata(text):
+    metadata = {}
+    for line in text.split('\r\n'):
+        if not line:
+            continue
+        if line[0] == '<':
+            continue
+        element = line.split(':', 1)
+        metadata[element[0]] = element[-1].strip(' ')
+    return metadata
+
+In [56]:
+
+parse_metadata(data[0])
+
+Out[56]:
+
+{'Collection': 'John Malcolm Fraser, 2007.0023',
+ 'Collection URI': 'http://gallery.its.unimelb.edu.au/imu/imu.php?request=load&irn=115190&ecatalogue=on&view=details',
+ 'Date': '20/12/1959',
+ 'Description': 'press statement',
+ 'Format': 'Uncorrected OCR text',
+ 'Title': 'Commonwealth ban on export of birds'}
+
+In [57]:
+
+cfdist = ConditionalFreqDist()
+for filename in os.listdir(corpus_path):
+    text = open(os.path.join(corpus_path, filename)).read()
+    #split text of file on 'end metadata'
+    text = text.split("<!--end metadata-->")
+    #parse metadata using previously defined function "parse_metadata"
+    metadata = parse_metadata(text[0])
+    #skip all speeches for which there is no exact date
+    if metadata['Date'][0] == 'c':
+        continue
+    #build a frequency distribution graph by year, that is, take the final bit of the 'Date' string after '/'
+    cfdist['count'][metadata['Date'].split('/')[-1]] += 1
+cfdist.plot()
+
+In [58]:
+
+cfdist2 = ConditionalFreqDist()
+for filename in os.listdir(corpus_path):
+    text = open(os.path.join(corpus_path, filename)).read()
+    text = text.split("<!--end metadata-->")
+    metadata = parse_metadata(text[0])
+    if metadata['Date'][0] == 'c':
+        continue
+    cfdist2['count'][metadata['Description']] += 1
+cfdist2.plot()
+
+In [60]:
+
+import re
+import os
+# a path to our soonwordso-be organised corpus
+newpath = '../corpora/fraser-year'
+os.makedirs(newpath)
+files = os.listdir(corpus_path)
+# define a regex to match year portion of date
+yearfinder = re.compile('19[0-9]{2}')
+for filename in files:
+    # split file contents at end of metadata
+    text = open(os.path.join(corpus_path, filename))
+    data = text.read().split("<!--end metadata-->")
+    # get date from data[0]
+    # use our metadata parser to get metadata
+    metadata = parse_metadata(data[0])
+    #look up date field of dict entry
+    date = metadata.get('Date')
+    # search date for year
+    yearmatch = re.search(yearfinder, str(date))
+    #get the year as a string
+    year = str(yearmatch.group())
+    # make a directory with the year name
+    if not os.path.exists(os.path.join(newpath, year)):
+        os.makedirs(os.path.join(newpath, year))
+    # make a new file with the same name as the old one in the new dir
+    fo = open(os.path.join(newpath, year, filename),"w")
+    # write the content portion, without metadata
+    fo.write(data[1])
+    fo.close()
+
+In [61]:
+
+print os.listdir(newpath)
+print os.listdir(newpath + '/1981')
+
+['1954', '1981', '1970', '1962', '1956', '1957', '1974', '1958', '1967', '1969', '1973', '1964', '1971', '1959', '1972', '1961', '1965', '1960', '1963', '1968', '1966', '1982', '1975']
+['UDS2013680-711-full.txt', 'UDS2013680-723-full.txt', 'UDS2013680-725-full.txt', 'UDS2013680-708-full.txt', 'UDS2013680-721-full.txt', 'UDS2013680-712-full.txt', 'UDS2013680-714-full.txt', 'UDS2013680-705-full.txt', 'UDS2013680-719-full.txt', 'UDS2013680-716-full.txt', 'UDS2013680-706-full.txt', 'UDS2013680-703-full.txt', 'UDS2013680-710-full.txt', 'UDS2013680-709-full.txt', 'UDS2013680-722-full.txt', 'UDS2013680-704-full.txt', 'UDS2013680-717-full.txt', 'UDS2013680-718-full.txt', 'UDS2013680-724-full.txt', 'UDS2013680-720-full.txt', 'UDS2013680-707-full.txt', 'UDS2013680-713-full.txt', 'UDS2013680-715-full.txt']
+
+In [62]:
+
+from nltk import word_tokenize
+speech = open('../corpora/fraser-year/1975/UDS2013680-678-full.txt', "r").read() 
+tokens = word_tokenize(speech)
+print tokens[:100]
+
+['ELECTORAL', 'RADIO', 'TALK', 'Embargo', ':', 'Sunday', ',', '23rd', 'Feb.', '75', '.', '6.00', 'p.m', '.', 'THE', 'HON', '.', 'MEMBER', 'FOR', 'WANNON', '-', 'MALCOLM', 'FRASER', 'In', 'answer', 'to', 'questions', 'early', 'this', 'week', ',', 'the', 'Treasurer', ',', 'Dr', 'Cairns', ',', 'put', 'himself', 'in', 'direct', 'contradiction', 'to', 'the', 'Prime', 'Minister', 'concerning', 'the', 'nature', 'of', 'economic', 'problems', '.', 'On', 'the', '27th', 'January', ',', 'Mr', 'Whitlam', 'was', 're-', 'ported', 'to', 'have', 'said', 'from', 'Adelaide', ':', "''", 'You', 'can', 'not', 'blame', 'Vietnam', 'for', 'the', 'inflation', 'in', 'the', 'Western', 'world', '.', '``', 'You', 'can', 'not', 'blame', 'the', 'Oil', 'crisis', 'for', 'the', 'inflation', 'in', 'Australia', '.', 'You', 'can', 'not']
+
+In [64]:
+
+print metadata['Description']
+
+Radio 3HA and 3YB - radio talk
+
+In [66]:
+
+from nltk import word_tokenize
+speech = open('../corpora/fraser-year/1975/UDS2013680-678-full.txt', "r").read() 
+tokens = word_tokenize(speech)
+print tokens[:100]
+
+['ELECTORAL', 'RADIO', 'TALK', 'Embargo', ':', 'Sunday', ',', '23rd', 'Feb.', '75', '.', '6.00', 'p.m', '.', 'THE', 'HON', '.', 'MEMBER', 'FOR', 'WANNON', '-', 'MALCOLM', 'FRASER', 'In', 'answer', 'to', 'questions', 'early', 'this', 'week', ',', 'the', 'Treasurer', ',', 'Dr', 'Cairns', ',', 'put', 'himself', 'in', 'direct', 'contradiction', 'to', 'the', 'Prime', 'Minister', 'concerning', 'the', 'nature', 'of', 'economic', 'problems', '.', 'On', 'the', '27th', 'January', ',', 'Mr', 'Whitlam', 'was', 're-', 'ported', 'to', 'have', 'said', 'from', 'Adelaide', ':', "''", 'You', 'can', 'not', 'blame', 'Vietnam', 'for', 'the', 'inflation', 'in', 'the', 'Western', 'world', '.', '``', 'You', 'can', 'not', 'blame', 'the', 'Oil', 'crisis', 'for', 'the', 'inflation', 'in', 'Australia', '.', 'You', 'can', 'not']
+
+In [69]:
+
+data = open(os.path.join(corpus_path, 'UDS2013680-100-full.txt'))
+
+In [70]:
+
+data1 = data.read().split("<--end metadata-->")
+
+In [74]:
+
+from nltk.probability import ConditionalFreqDist
+import matplotlib
+% matplotlib inline
+
+In [75]:
+
+cfdist = ConditionalFreqDist()
+for filename in os.listdir(corpus_path):
+    text = open(os.path.join(corpus_path, filename)).read()
+    #split text of file on 'end metadata'
+    text = text.split("<!--end metadata-->")
+    #parse metadata using previously defined function "parse_metadata"
+    metadata = parse_metadata(text[0])
+    #skip all speeches for which there is no exact date
+    if metadata['Date'][0] == 'c':
+        continue
+    #build a frequency distribution graph by year, that is, take the final bit of the 'Date' string after '/'
+    cfdist['count'][metadata['Date'].split('/')[-1]] += 1
+cfdist.plot()
+
+In [80]:
+
+import nltk
+nltk.download('all')
+
+[nltk_data] Downloading collection u'all'
+[nltk_data]    | 
+[nltk_data]    | Downloading package abc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package abc is already up-to-date!
+[nltk_data]    | Downloading package alpino to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package alpino is already up-to-date!
+[nltk_data]    | Downloading package biocreative_ppi to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package biocreative_ppi is already up-to-date!
+[nltk_data]    | Downloading package brown to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package brown is already up-to-date!
+[nltk_data]    | Downloading package brown_tei to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package brown_tei is already up-to-date!
+[nltk_data]    | Downloading package cess_cat to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package cess_cat is already up-to-date!
+[nltk_data]    | Downloading package cess_esp to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package cess_esp is already up-to-date!
+[nltk_data]    | Downloading package chat80 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package chat80 is already up-to-date!
+[nltk_data]    | Downloading package city_database to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package city_database is already up-to-date!
+[nltk_data]    | Downloading package cmudict to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package cmudict is already up-to-date!
+[nltk_data]    | Downloading package comparative_sentences to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package comparative_sentences is already up-to-
+[nltk_data]    |       date!
+[nltk_data]    | Downloading package comtrans to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package comtrans is already up-to-date!
+[nltk_data]    | Downloading package conll2000 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package conll2000 is already up-to-date!
+[nltk_data]    | Downloading package conll2002 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package conll2002 is already up-to-date!
+[nltk_data]    | Downloading package conll2007 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package conll2007 is already up-to-date!
+[nltk_data]    | Downloading package crubadan to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package crubadan is already up-to-date!
+[nltk_data]    | Downloading package dependency_treebank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package dependency_treebank is already up-to-date!
+[nltk_data]    | Downloading package europarl_raw to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package europarl_raw is already up-to-date!
+[nltk_data]    | Downloading package floresta to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package floresta is already up-to-date!
+[nltk_data]    | Downloading package framenet_v15 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package framenet_v15 is already up-to-date!
+[nltk_data]    | Downloading package gazetteers to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package gazetteers is already up-to-date!
+[nltk_data]    | Downloading package genesis to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package genesis is already up-to-date!
+[nltk_data]    | Downloading package gutenberg to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package gutenberg is already up-to-date!
+[nltk_data]    | Downloading package ieer to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ieer is already up-to-date!
+[nltk_data]    | Downloading package inaugural to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package inaugural is already up-to-date!
+[nltk_data]    | Downloading package indian to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package indian is already up-to-date!
+[nltk_data]    | Downloading package jeita to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package jeita is already up-to-date!
+[nltk_data]    | Downloading package kimmo to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package kimmo is already up-to-date!
+[nltk_data]    | Downloading package knbc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package knbc is already up-to-date!
+[nltk_data]    | Downloading package lin_thesaurus to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package lin_thesaurus is already up-to-date!
+[nltk_data]    | Downloading package mac_morpho to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package mac_morpho is already up-to-date!
+[nltk_data]    | Downloading package machado to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package machado is already up-to-date!
+[nltk_data]    | Downloading package masc_tagged to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package masc_tagged is already up-to-date!
+[nltk_data]    | Downloading package moses_sample to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package moses_sample is already up-to-date!
+[nltk_data]    | Downloading package movie_reviews to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package movie_reviews is already up-to-date!
+[nltk_data]    | Downloading package names to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package names is already up-to-date!
+[nltk_data]    | Downloading package nombank.1.0 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package nombank.1.0 is already up-to-date!
+[nltk_data]    | Downloading package nps_chat to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package nps_chat is already up-to-date!
+[nltk_data]    | Downloading package oanc_masc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package oanc_masc is already up-to-date!
+[nltk_data]    | Downloading package omw to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Unzipping corpora/omw.zip.
+[nltk_data]    | Downloading package opinion_lexicon to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package opinion_lexicon is already up-to-date!
+[nltk_data]    | Downloading package paradigms to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package paradigms is already up-to-date!
+[nltk_data]    | Downloading package pil to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package pil is already up-to-date!
+[nltk_data]    | Downloading package pl196x to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package pl196x is already up-to-date!
+[nltk_data]    | Downloading package ppattach to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ppattach is already up-to-date!
+[nltk_data]    | Downloading package problem_reports to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package problem_reports is already up-to-date!
+[nltk_data]    | Downloading package propbank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package propbank is already up-to-date!
+[nltk_data]    | Downloading package ptb to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ptb is already up-to-date!
+[nltk_data]    | Downloading package oanc_masc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package oanc_masc is already up-to-date!
+[nltk_data]    | Downloading package product_reviews_1 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package product_reviews_1 is already up-to-date!
+[nltk_data]    | Downloading package product_reviews_2 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package product_reviews_2 is already up-to-date!
+[nltk_data]    | Downloading package pros_cons to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package pros_cons is already up-to-date!
+[nltk_data]    | Downloading package qc to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package qc is already up-to-date!
+[nltk_data]    | Downloading package reuters to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package reuters is already up-to-date!
+[nltk_data]    | Downloading package rte to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package rte is already up-to-date!
+[nltk_data]    | Downloading package semcor to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package semcor is already up-to-date!
+[nltk_data]    | Downloading package senseval to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package senseval is already up-to-date!
+[nltk_data]    | Downloading package sentiwordnet to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sentiwordnet is already up-to-date!
+[nltk_data]    | Downloading package sentence_polarity to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sentence_polarity is already up-to-date!
+[nltk_data]    | Downloading package shakespeare to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package shakespeare is already up-to-date!
+[nltk_data]    | Downloading package sinica_treebank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sinica_treebank is already up-to-date!
+[nltk_data]    | Downloading package smultron to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package smultron is already up-to-date!
+[nltk_data]    | Downloading package state_union to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package state_union is already up-to-date!
+[nltk_data]    | Downloading package stopwords to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package stopwords is already up-to-date!
+[nltk_data]    | Downloading package subjectivity to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package subjectivity is already up-to-date!
+[nltk_data]    | Downloading package swadesh to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package swadesh is already up-to-date!
+[nltk_data]    | Downloading package switchboard to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package switchboard is already up-to-date!
+[nltk_data]    | Downloading package timit to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package timit is already up-to-date!
+[nltk_data]    | Downloading package toolbox to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package toolbox is already up-to-date!
+[nltk_data]    | Downloading package treebank to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package treebank is already up-to-date!
+[nltk_data]    | Downloading package twitter_samples to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package twitter_samples is already up-to-date!
+[nltk_data]    | Downloading package udhr to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package udhr is already up-to-date!
+[nltk_data]    | Downloading package udhr2 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package udhr2 is already up-to-date!
+[nltk_data]    | Downloading package unicode_samples to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package unicode_samples is already up-to-date!
+[nltk_data]    | Downloading package universal_treebanks_v20 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package universal_treebanks_v20 is already up-to-
+[nltk_data]    |       date!
+[nltk_data]    | Downloading package verbnet to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package verbnet is already up-to-date!
+[nltk_data]    | Downloading package webtext to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package webtext is already up-to-date!
+[nltk_data]    | Downloading package wordnet to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Unzipping corpora/wordnet.zip.
+[nltk_data]    | Downloading package wordnet_ic to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package wordnet_ic is already up-to-date!
+[nltk_data]    | Downloading package words to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package words is already up-to-date!
+[nltk_data]    | Downloading package ycoe to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package ycoe is already up-to-date!
+[nltk_data]    | Downloading package rslp to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package rslp is already up-to-date!
+[nltk_data]    | Downloading package hmm_treebank_pos_tagger to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package hmm_treebank_pos_tagger is already up-to-
+[nltk_data]    |       date!
+[nltk_data]    | Downloading package maxent_treebank_pos_tagger to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package maxent_treebank_pos_tagger is already up-
+[nltk_data]    |       to-date!
+[nltk_data]    | Downloading package universal_tagset to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package universal_tagset is already up-to-date!
+[nltk_data]    | Downloading package maxent_ne_chunker to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package maxent_ne_chunker is already up-to-date!
+[nltk_data]    | Downloading package punkt to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package punkt is already up-to-date!
+[nltk_data]    | Downloading package book_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package book_grammars is already up-to-date!
+[nltk_data]    | Downloading package sample_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package sample_grammars is already up-to-date!
+[nltk_data]    | Downloading package spanish_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package spanish_grammars is already up-to-date!
+[nltk_data]    | Downloading package basque_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package basque_grammars is already up-to-date!
+[nltk_data]    | Downloading package large_grammars to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package large_grammars is already up-to-date!
+[nltk_data]    | Downloading package tagsets to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package tagsets is already up-to-date!
+[nltk_data]    | Downloading package snowball_data to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package snowball_data is already up-to-date!
+[nltk_data]    | Downloading package bllip_wsj_no_aux to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package bllip_wsj_no_aux is already up-to-date!
+[nltk_data]    | Downloading package word2vec_sample to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package word2vec_sample is already up-to-date!
+[nltk_data]    | Downloading package panlex_swadesh to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package panlex_swadesh is already up-to-date!
+[nltk_data]    | Downloading package mte_teip5 to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package mte_teip5 is already up-to-date!
+[nltk_data]    | Downloading package averaged_perceptron_tagger to
+[nltk_data]    |     /home/researcher/nltk_data...
+[nltk_data]    |   Package averaged_perceptron_tagger is already up-
+[nltk_data]    |       to-date!
+[nltk_data]    | 
+[nltk_data]  Done downloading collection all
+
+Out[80]:
+
+True
+
+In [81]:
+
+from nltk import word_tokenize
+speech = open(os.path.join(corpus_path, 'UDS2013680-678-full.txt'), "r").read() 
+tokens = word_tokenize(speech)
+print tokens[:100]
+
+['<', '!', '--', 'start', 'metadata', '--', '>', 'Title', ':', 'Economic', 'problems', ',', 'unemployment', ',', 'the', 'Third', 'World', 'Description', ':', 'electorate', 'radio', 'talk', 'Date', ':', '23/02/1975', 'Collection', ':', 'John', 'Malcolm', 'Fraser', ',', '2005.0072', 'Collection', 'URI', ':', 'http', ':', '//gallery.its.unimelb.edu.au/imu/imu.php', '?', 'request=load', '&', 'irn=115222', '&', 'ecatalogue=on', '&', 'view=details', 'Format', ':', 'Uncorrected', 'OCR', 'text', '<', '!', '--', 'end', 'metadata', '--', '>', 'ELECTORAL', 'RADIO', 'TALK', 'Embargo', ':', 'Sunday', ',', '23rd', 'Feb.', '75', '.', '6.00', 'p.m', '.', 'THE', 'HON', '.', 'MEMBER', 'FOR', 'WANNON', '-', 'MALCOLM', 'FRASER', 'In', 'answer', 'to', 'questions', 'early', 'this', 'week', ',', 'the', 'Treasurer', ',', 'Dr', 'Cairns', ',', 'put', 'himself', 'in', 'direct', 'contradiction']
+
+In [83]:
+
+len(speech)
+
+Out[83]:
+
+6225
+
+In [84]:
+
+len(tokens)
+
+Out[84]:
+
+1068
+
+In [85]:
+
+tagged = nltk.pos_tag(words, tagset='universal')
+print tagged
+
+[('They', u'PRON'), ('refuse', u'VERB'), ('to', u'PRT'), ('permit', u'VERB'), ('us', u'PRON'), ('the', u'DET'), ('refuse', u'NOUN'), ('permit', u'NOUN')]
+
+In [87]:
+
+tag_fd = nltk.FreqDist(tag for (word,tag) in tagged) 
+tag_fd.most_common()
+
+Out[87]:
+
+[(u'PRON', 2), (u'VERB', 2), (u'NOUN', 2), (u'DET', 1), (u'PRT', 1)]
+
